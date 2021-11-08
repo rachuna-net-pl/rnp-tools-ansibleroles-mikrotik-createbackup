@@ -1,0 +1,7 @@
+- name: "[Ubuntu] Install tools"
+  delegate_to: localhost
+  apt:
+    pkg:
+    - sshpass
+  when: input_role_localhost_os_distribution == "Ubuntu"
+  register: install_tools_output

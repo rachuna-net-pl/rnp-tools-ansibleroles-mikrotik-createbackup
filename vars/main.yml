@@ -1,2 +1,2 @@
----
-# vars file for .
+var_role_backup_filename:      "{{ input_role_ansible_host }}.{{ lookup('pipe','date +%Y%m%d') }}.backup"
+var_role_backup_filename_rsc:  "{{ input_role_ansible_host }}.{{ lookup('pipe','date +%Y%m%d') }}.rsc"

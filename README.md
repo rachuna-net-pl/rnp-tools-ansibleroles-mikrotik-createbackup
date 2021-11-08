@@ -6,6 +6,17 @@ A brief description of the role goes here.
 Requirements
 ------------
 
+```
+vagrant plugin uninstall vagrant-routeros
+apt-get install python3-pip
+pip install paramiko
+```
+
+vagrant ssh -- /ip address add address=192.168.33.100/24 interface=ether2 network=192.168.33.100
+
+vagrant ssh -- /user set admin password=admin
+
+
 Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
 
 Role Variables
