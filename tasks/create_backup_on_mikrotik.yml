@@ -1,0 +1,6 @@
+- name: Create backup of Mikrotik to local storage
+  routeros_command:
+    commands:
+      - /system backup save name="{{ var_role_backup_filename }}"
+      - /export file="{{ var_role_backup_filename_rsc }}"
+  register: create_backup_stdout

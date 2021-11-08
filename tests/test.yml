@@ -1,0 +1,26 @@
+- hosts: all
+  gather_facts: yes
+  tasks:
+
+  - include_role:
+      name: ../../
+    vars:
+      input_role_localhost_os_distribution: "{{ ansible_distribution }}"
+      input_role_ansible_host:              "{{ ansible_host }}"
+      input_role_destination_path:          "/tmp/test"
+      input_role_ansible_user:              "{{ ansible_user }}"
+      input_role_ansible_password:          "{{ ansible_ssh_pass }}"
+
+  - name: Test backup file exists
+    delegate_to: localhost
+    failed_when: not stat_result.stat.exists
+    stat:
+      path: "/tmp/test/backup/{{ ansible_host }}.{{ lookup('pipe','date +%Y%m%d') }}.backup"
+    register: stat_result
+
+  - name: Test rsc file exists
+    delegate_to: localhost
+    failed_when: not stat_result.stat.exists
+    stat:
+      path: "/tmp/test/rsc/{{ ansible_host }}.{{ lookup('pipe','date +%Y%m%d') }}.rsc"
+    register: stat_result
