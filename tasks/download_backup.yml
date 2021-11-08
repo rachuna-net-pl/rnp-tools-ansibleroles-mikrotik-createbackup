@@ -1,0 +1,7 @@
+- name: Download backup
+  become: yes
+  action: command sshpass -p "{{ input_role_ansible_password }}" sftp {{ input_role_ansible_user }}@{{ input_role_ansible_host }}:{{ var_role_backup_filename }} {{ input_role_destination_path }}/backup
+
+- name: Download configuration
+  become: yes
+  action: command sshpass -p "{{ input_role_ansible_password }}" sftp {{ input_role_ansible_user }}@{{ input_role_ansible_host }}:{{ var_role_backup_filename_rsc }} {{ input_role_destination_path }}/rsc

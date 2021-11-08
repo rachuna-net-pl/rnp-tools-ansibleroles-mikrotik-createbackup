@@ -1,0 +1,19 @@
+galaxy_info:
+  author: Maciej Rachuna
+  description: Create configuration mikrotik
+  company: rachuna-net.pl
+  license: BSD 3-Clause
+  min_ansible_version: 2.9
+
+  platforms:
+  - name: RouterOs
+    versions:
+    - all
+
+  galaxy_tags: [
+    "system",
+    "mikrotik",
+    "backup",
+  ]
+
+dependencies: []
