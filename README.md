@@ -1,49 +1,76 @@
-Role Name
+rnp-tools-ansibleroles-mikrotik-createbackup
 =========
 
-A brief description of the role goes here.
+Ansible Role - Mikrotik - Create backup
+
+![Overwiew](https://gitlab.com/rachuna-net.pl/tools/ansibleroles/mikrotik/rnp-tools-ansibleroles-mikrotik-createbackup/-/raw/develop/docs/createBackup.png)
 
 Requirements
 ------------
 
 ```
-vagrant plugin uninstall vagrant-routeros
+apt-get install sshpass
+```
+
+```
 apt-get install python3-pip
 pip install paramiko
 ```
 
+Vagrant create test
+```
+vagrant plugin uninstall vagrant-routeros
 vagrant ssh -- /ip address add address=192.168.33.100/24 interface=ether2 network=192.168.33.100
-
 vagrant ssh -- /user set admin password=admin
+```
 
-
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Defaults role values:
 
-Dependencies
-------------
+```yaml
+input_role_localhost_os_distribution: "ubuntu"
+input_role_ansible_host:             "{{ ansible_host }}"
+input_role_destination_path:          "/tmp/test"
+input_role_ansible_user:              "{{ ansible_user }}"
+input_role_ansible_password:          "{{ ansible_ssh_pass }}"
+```
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+Role vars:
+```yaml
+var_role_backup_filename:      "{{ input_role_ansible_host }}.{{ lookup('pipe','date +%Y%m%d') }}.backup"
+var_role_backup_filename_rsc:  "{{ input_role_ansible_host }}.{{ lookup('pipe','date +%Y%m%d') }}.rsc"
+```
+
+
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+```yaml
+- hosts: all
+  gather_facts: yes
+  tasks:
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+  - include_role:
+      name: ../../
+    vars:
+      input_role_localhost_os_distribution: "{{ ansible_distribution }}"
+      input_role_ansible_host:              "{{ ansible_host }}"
+      input_role_destination_path:          "/tmp/test"
+      input_role_ansible_user:              "{{ ansible_user }}"
+      input_role_ansible_password:          "{{ ansible_ssh_pass }}"
+```
 
 License
 -------
 
-BSD
+BSD 3-Clause
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+### Maciej Rachuna
+SysOps/DevOps
